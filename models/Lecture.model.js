@@ -1,6 +1,6 @@
-const { model } = require("mongoose");
+const { model, Schema } = require("mongoose");
 
-const LectureSchema = new mongoose.Schema({
+const LectureSchema = new Schema({
     video_url: {
       type: String,
       required: true,

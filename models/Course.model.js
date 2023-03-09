@@ -1,6 +1,6 @@
-const { model } = require("mongoose");
+const { model, Schema } = require("mongoose");
 
-const CourseSchema = new mongoose.Schema({
+const CourseSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -24,7 +24,7 @@ const CourseSchema = new mongoose.Schema({
     //de id de lectures
   },
   instructor: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },

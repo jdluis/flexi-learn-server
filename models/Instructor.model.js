@@ -1,9 +1,9 @@
-const { model } = require("mongoose");
+const { model, Schema } = require("mongoose");
 
-const InstructorSchema = new mongoose.Schema(
+const InstructorSchema = new Schema(
   {
     user_id: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
