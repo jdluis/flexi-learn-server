@@ -11,6 +11,6 @@ const coursesRoutes = require("./courses.routes")
 router.use("/courses", coursesRoutes)
 
 const lecturesRoutes = require("./lectures.routes")
-router.use("/courses", lecturesRoutes)
+router.use("/lectures", lecturesRoutes)
 
 module.exports = router;
