@@ -10,16 +10,10 @@ const TestimonialsSchema = new Schema({
     ref: "User",
     required: true,
   },
-  //For assign to the specific user
+  //For assign to the specific user/course
   assignTo: {
     type: Schema.Types.ObjectId,
-    ref: "User",
-    required: false,
-  },
-  //For assign to the specific course
-  assignOn: {
-    type: Schema.Types.ObjectId,
-    ref: "Course",
+    refPath: 'receiverModel',
     required: false,
   },
 });
