@@ -1,0 +1,17 @@
+[
+    {
+        "_id": "640b03724ae7ee0941b23f86",
+        "email": "pepe@gmail.com",
+        "password": "$2a$10$VPS0CKyfGDHvX2Ie67fYhOIlJhDSNA/fPyIhVqxZnuDQ31F/dy0Qu"
+    },
+    {
+        "_id": "640b03724ae7ee0941b23f87",
+        "email": "instructor@gmail.com",
+        "password": "$2a$10$VPS0CKyfGDHvX2Ie67fYhOIlJhDSNA/fPyIhVqxZnuDQ31F/dy0Qu"
+    },
+    {
+        "_id": "640b03724ae7ee0941b23f88",
+        "email": "user@gmail.com",
+        "password": "$2a$10$VPS0CKyfGDHvX2Ie67fYhOIlJhDSNA/fPyIhVqxZnuDQ31F/dy0Qu"
+    }
+]

@@ -10,6 +10,7 @@ const Student = require("../models/Student.model");
 router.post("/signup", async (req, res, next) => {
   try {
     const { email, password, type } = req.body;
+    console.log(req.body);
 
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
@@ -74,11 +75,26 @@ router.post("/login", async (req, res, next) => {
       return;
     }
 
-    //payload
-    const payload = {
-      _id: foundUser._id,
-      email: foundUser.email,
-    };
+    /*        // Payload //
+    Search if there is an instructor or a student
+    with the ID of the logged-in user and add it to the payload.
+    */
+
+    const isInstructor = await Instructor.findOne({ user_id: foundUser._id });
+    const isStudent = await Student.findOne({ user_id: foundUser._id });
+
+    let payload = {};
+    isInstructor
+      ? (payload = {
+          _id: foundUser._id,
+          email: foundUser.email,
+          instructor: isInstructor._id,
+        })
+      : (payload = {
+          _id: foundUser._id,
+          email: foundUser.email,
+          student: isStudent._id,
+        });
 
     //Token generator
     const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
@@ -96,7 +112,7 @@ router.post("/login", async (req, res, next) => {
 
 //GET "/api/auth/verify" => User active or not?
 router.get("/verify", isAuthenticated, (req, res, next) => {
-  console.log(req.payload);
   res.status(200).json(req.payload);
 });
+
 module.exports = router;

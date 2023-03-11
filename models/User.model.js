@@ -23,6 +23,10 @@ const UserSchema = new Schema(
       type: String,
       required: false,
     },
+    profileImg_url: {
+      type: String,
+      default: "https://www.computerhope.com/jargon/g/guest-user.png",
+    },
   },
   {
     timestamps: true,

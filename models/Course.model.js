@@ -12,14 +12,17 @@ const CourseSchema = new Schema(
     },
     topic: {
       type: String,
-      enum: ["Programing", "Healthy", "Soft Skills"],
+      enum: ["programing", "healthy", "psychology", "marketing"],
       required: true,
     },
     price: {
       type: Number,
       required: true,
     },
-
+    totalDuration: {
+      type: Number,
+      required: false,
+    },
     lectures: [
       {
         type: Schema.Types.ObjectId,
@@ -31,7 +34,17 @@ const CourseSchema = new Schema(
       ref: "User",
       required: true,
     },
+    coverImg_url: {
+      type: String,
+      default:
+        "https://uploads-ssl.webflow.com/63723fe799096ad12312edc2/63c6be2a0b0e6f6801c9fdfc_59.png",
+    },
     rate: Number,
+    level: {
+      type: String,
+      requiered: true,
+      enum: ["beginner", "intermediate", "advanced", "expert", "all"]
+    },
   },
   {
     timestamps: true,

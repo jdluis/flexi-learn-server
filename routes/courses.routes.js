@@ -2,11 +2,28 @@ const router = require("express").Router();
 const Courses = require("../models/Course.model.js");
 const Lectures = require("../models/Lecture.model.js");
 const Instructor = require("../models/Instructor.model");
+const isAuthenticated = require("../middlewares/auth.middleware");
 
 //GET "/api/courses"
 router.get("/", async (req, res, next) => {
   try {
     const response = await Courses.find().populate("instructor");
+    //test
+    res.json({ succeesMessage: "Get of courses Ok", data: response });
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+});
+
+//GET "/api/courses"
+router.get("/my-courses", isAuthenticated, async (req, res, next) => {
+  try {
+    const {_id} = req.payload
+    
+    const response = await Courses.find({ instructor: _id }).populate(
+      "instructor"
+    );
     //test
     res.json({ succeesMessage: "Get of courses Ok", data: response });
   } catch (err) {
@@ -29,16 +46,18 @@ router.get("/:id", async (req, res, next) => {
 });
 
 //POST "/api/courses/add"
-router.post("/add", async (req, res, next) => {
+router.post("/add", isAuthenticated, async (req, res, next) => {
+  const {_id} = req.payload
+  
   try {
     // ! The lectures will be relationed after in the lectures routes
-    const { title, description, topic, price, instructor } = req.body;
+    const { title, description, topic, price } = req.body;
     const course = await Courses.create({
       title,
       description,
       topic,
       price,
-      instructor,
+      instructor: _id,
     });
 
     //test
@@ -112,7 +131,6 @@ router.get("/:id/lectures/", async (req, res, next) => {
     res.json({ errorMessage: err });
   }
 });
-
 
 //POST "/api/courses/:id/lectures/add"
 router.post("/:id/lectures/add", async (req, res, next) => {
