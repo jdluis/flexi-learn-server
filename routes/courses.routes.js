@@ -9,7 +9,7 @@ router.get("/", async (req, res, next) => {
   try {
     const response = await Courses.find().populate("instructor");
     //test
-    res.json({ succeesMessage: "Get of courses Ok", data: response });
+    res.json(response);
   } catch (err) {
     next(err);
     console.log(err);
@@ -19,13 +19,13 @@ router.get("/", async (req, res, next) => {
 //GET "/api/courses"
 router.get("/my-courses", isAuthenticated, async (req, res, next) => {
   try {
-    const {_id} = req.payload
-    
-    const response = await Courses.find({ instructor: _id }).populate(
+    const { instructor } = req.payload;
+
+    const response = await Courses.find({ instructor: instructor }).populate(
       "instructor"
     );
     //test
-    res.json({ succeesMessage: "Get of courses Ok", data: response });
+    res.json(response);
   } catch (err) {
     next(err);
     console.log(err);
@@ -36,9 +36,9 @@ router.get("/my-courses", isAuthenticated, async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const response = await Courses.findById(id);
+    const response = await Courses.findById(id).populate("lectures");
     //test
-    res.json({ succeesMessage: "Get of courses details Ok", data: response });
+    res.json(response);
   } catch (err) {
     next(err);
     console.log(err);
@@ -47,8 +47,8 @@ router.get("/:id", async (req, res, next) => {
 
 //POST "/api/courses/add"
 router.post("/add", isAuthenticated, async (req, res, next) => {
-  const {_id} = req.payload
-  
+  const { _id } = req.payload;
+
   try {
     // ! The lectures will be relationed after in the lectures routes
     const { title, description, topic, price } = req.body;
@@ -61,7 +61,7 @@ router.post("/add", isAuthenticated, async (req, res, next) => {
     });
 
     //test
-    res.json({ succeesMessage: "POST add course Ok", data: course });
+    res.json(course);
   } catch (err) {
     next(err);
     console.log(err);
@@ -89,7 +89,7 @@ router.patch("/:id/edit", async (req, res, next) => {
     );
 
     //test
-    res.json({ succeesMessage: "Patch of course Ok", data: response });
+    res.json(response);
   } catch (err) {
     next(err);
     console.log(err);
@@ -121,10 +121,7 @@ router.get("/:id/lectures/", async (req, res, next) => {
       .select("lectures")
       .populate("lectures");
     //test
-    res.json({
-      succeesMessage: "Get of lectures Ok",
-      data: allLecturesOfCourse,
-    });
+    res.json(allLecturesOfCourse);
   } catch (err) {
     next(err);
     console.log(err);

@@ -8,12 +8,9 @@ router.get("/", async (req, res, next) => {
   const { id } = req.params;
   try {
     //Select all lectures from the specific course
-    const allLectures = await Lectures.find()
+    const allLectures = await Lectures.find();
     //test
-    res.json({
-      succeesMessage: "Get all lectures Ok",
-      data: allLectures,
-    });
+    res.json(allLectures);
   } catch (err) {
     next(err);
     console.log(err);
@@ -26,17 +23,18 @@ router.patch("/:idLecture/edit", async (req, res, next) => {
   const { idLecture } = req.params;
   const { video_url, title, description, duration } = req.body;
   try {
-    const updateLecture = await Lectures.findByIdAndUpdate(idLecture, {
-      video_url,
-      title,
-      description,
-      duration,
-    }, {new:true});
+    const updateLecture = await Lectures.findByIdAndUpdate(
+      idLecture,
+      {
+        video_url,
+        title,
+        description,
+        duration,
+      },
+      { new: true }
+    );
     //test
-    res.json({
-      succeesMessage: "Get of edit lectures Ok",
-      data: updateLecture,
-    });
+    res.json(updateLecture);
   } catch (err) {
     next(err);
     console.log(err);
@@ -44,17 +42,13 @@ router.patch("/:idLecture/edit", async (req, res, next) => {
   }
 });
 
-
 //GET "/api/lectures/:idLecture"
 router.get("/:idLecture", async (req, res, next) => {
   const { idLecture } = req.params;
   try {
     //test
     const allLecturesOfCourse = await Lectures.findById(idLecture);
-    res.json({
-      succeesMessage: "Get of lectures Ok",
-      data: allLecturesOfCourse,
-    });
+    res.json(allLecturesOfCourse);
   } catch (err) {
     next(err);
     console.log(err);

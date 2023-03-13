@@ -5,6 +5,7 @@ const LectureSchema = new Schema(
     video_url: {
       type: String,
       required: true,
+      unique: true
     },
     title: {
       type: String,

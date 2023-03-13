@@ -15,7 +15,26 @@
         "topic": "healthy",
         "price": 200,
         "lectures": [],
-        "instructor": "6409f75af91f28c6a35a1943",
+        "instructor": "640b03724ae7ee0941b23f88",
+        "level": "beginner"
+    },
+    {
+        "_id": "640b03724ae7ee0941b23f89",
+        "title": "De zero a hero",
+        "description": "Una nueva forma de someter tu codigo mediante la mejor atraccion turistica.",
+        "topic": "programing",
+        "price": 200,
+        "lectures": [],
+        "instructor": "6409c93d6b171a56ce1a85dc"
+    },
+    {
+        "_id": "640b03724ae7ee0941b23f90",
+        "title": "Por la gloria COurse",
+        "description": "Una nueva forma de someter tu codigo mediante la mejor atraccion turistica.",
+        "topic": "healthy",
+        "price": 200,
+        "lectures": [],
+        "instructor": "640b03724ae7ee0941b23f88",
         "level": "beginner"
     }
 ]
