@@ -6,7 +6,7 @@
         "topic": "programing",
         "price": 200,
         "lectures": [],
-        "instructor": "6409c93d6b171a56ce1a85dc"
+        "instructor": "640b03724ae7ee0941b23f20"
     },
     {
         "_id": "640b83881c4a8a32a4e519a6",
@@ -15,7 +15,7 @@
         "topic": "healthy",
         "price": 200,
         "lectures": [],
-        "instructor": "640b03724ae7ee0941b23f88",
+        "instructor": "640b03724ae7ee0941b23f20",
         "level": "beginner"
     },
     {
@@ -25,7 +25,7 @@
         "topic": "programing",
         "price": 200,
         "lectures": [],
-        "instructor": "6409c93d6b171a56ce1a85dc"
+        "instructor": "640b03724ae7ee0941b23f14"
     },
     {
         "_id": "640b03724ae7ee0941b23f90",
@@ -34,7 +34,7 @@
         "topic": "healthy",
         "price": 200,
         "lectures": [],
-        "instructor": "640b03724ae7ee0941b23f88",
+        "instructor": "640b03724ae7ee0941b23f14",
         "level": "beginner"
     }
 ]

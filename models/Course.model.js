@@ -31,7 +31,7 @@ const CourseSchema = new Schema(
     ],
     instructor: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Instructor",
       required: true,
     },
     coverImg_url: {

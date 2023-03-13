@@ -8,6 +8,7 @@ const isAuthenticated = require("../middlewares/auth.middleware");
 router.get("/", async (req, res, next) => {
   try {
     const response = await Courses.find().populate("instructor");
+
     //test
     res.json(response);
   } catch (err) {
@@ -47,17 +48,20 @@ router.get("/:id", async (req, res, next) => {
 
 //POST "/api/courses/add"
 router.post("/add", isAuthenticated, async (req, res, next) => {
-  const { _id } = req.payload;
-
+  if (req.payload === null) {
+    res.status(500).json("You can't create the course without user");
+  }
+  
   try {
     // ! The lectures will be relationed after in the lectures routes
-    const { title, description, topic, price } = req.body;
+    const { title, description, topic, price, level } = req.body;
     const course = await Courses.create({
       title,
       description,
       topic,
       price,
-      instructor: _id,
+      level,
+      instructor: req.payload.instructor,
     });
 
     //test
@@ -75,7 +79,7 @@ router.patch("/:id/edit", async (req, res, next) => {
     const { id } = req.params;
     //Ahora quedan vacios, cuando este el front, el default
     // value sera el que ya estaba
-    const { title, description, topic, price } = req.body;
+    const { title, description, topic, price, level } = req.body;
 
     const response = await Courses.findByIdAndUpdate(
       id,
@@ -84,6 +88,7 @@ router.patch("/:id/edit", async (req, res, next) => {
         description,
         topic,
         price,
+        level,
       },
       { new: true }
     );
@@ -96,7 +101,7 @@ router.patch("/:id/edit", async (req, res, next) => {
   }
 });
 
-//DELETE "/api/courses/:id"
+//DELETE "/api/courses/:id/delete"
 router.delete("/:id/delete", async (req, res, next) => {
   try {
     const { id } = req.params;

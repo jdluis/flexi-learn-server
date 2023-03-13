@@ -112,6 +112,7 @@ router.post("/login", async (req, res, next) => {
 //GET "/api/auth/verify" => User active or not?
 router.get("/verify", isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
+  console.log(req.payload)
 });
 
 module.exports = router;
