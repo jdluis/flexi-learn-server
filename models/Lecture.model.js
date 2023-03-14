@@ -19,6 +19,10 @@ const LectureSchema = new Schema(
       type: Number,
       required: true,
     },
+    testimonials: [{
+      type: Schema.Types.ObjectId,
+      ref: "Testimonial",
+    }]
   },
   {
     timestamps: true,

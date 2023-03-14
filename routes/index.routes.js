@@ -16,4 +16,7 @@ router.use("/lectures", lecturesRoutes)
 const userRoutes = require("./user.routes")
 router.use("/user", userRoutes)
 
+const testimonialRoutes = require("./testimonial.routes")
+router.use("/testimonial", testimonialRoutes)
+
 module.exports = router;

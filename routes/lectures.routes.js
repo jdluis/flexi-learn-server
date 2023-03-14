@@ -21,7 +21,7 @@ router.get("/", async (req, res, next) => {
 //PATCH "/api/lectures/:idLecture/edit"
 router.patch("/:idLecture/edit", async (req, res, next) => {
   const { idLecture } = req.params;
-  const { video_url, title, description, duration } = req.body;
+  const { video_url, title, description, duration, testimonial } = req.body;
   try {
     const updateLecture = await Lectures.findByIdAndUpdate(
       idLecture,
@@ -30,6 +30,7 @@ router.patch("/:idLecture/edit", async (req, res, next) => {
         title,
         description,
         duration,
+        $push: { testimonials: testimonial },
       },
       { new: true }
     );
@@ -47,7 +48,7 @@ router.get("/:idLecture", async (req, res, next) => {
   const { idLecture } = req.params;
   try {
     //test
-    const allLecturesOfCourse = await Lectures.findById(idLecture);
+    const allLecturesOfCourse = await Lectures.findById(idLecture).populate("testimonials");
     res.json(allLecturesOfCourse);
   } catch (err) {
     next(err);

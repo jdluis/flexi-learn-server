@@ -9,7 +9,14 @@ const InstructorSchema = new Schema(
     },
     rate: Number,
     courses_sold: Number,
+    testimonials: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Testimonial",
+      },
+    ],
   },
+
   {
     timestamps: true,
   }
