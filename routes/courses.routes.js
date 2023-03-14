@@ -37,7 +37,7 @@ router.get("/my-courses", isAuthenticated, async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
-    const response = await Courses.findById(id).populate("lectures");
+    const response = await Courses.findById(id).populate("lectures instructor");
     //test
     res.json(response);
   } catch (err) {

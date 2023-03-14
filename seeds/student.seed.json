@@ -1,6 +1,10 @@
 [
   {
     "_id": "640b03724ae7ee0941b23f88",
-    "user_id": "640b03724ae7ee0941b23f88"
+    "user_id": "640b03724ae7ee0941b23f88",
+    "interested_topics": [
+      "programing",
+      "marketing"
+    ]
   }
 ]

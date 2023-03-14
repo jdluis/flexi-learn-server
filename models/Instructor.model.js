@@ -8,6 +8,7 @@ const InstructorSchema = new Schema(
       required: true,
     },
     rate: Number,
+    courses_sold: Number,
   },
   {
     timestamps: true,

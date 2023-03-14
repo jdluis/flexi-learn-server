@@ -1,10 +1,12 @@
 [
   {
     "_id": "640b03724ae7ee0941b23f14",
-    "user_id": "640b03724ae7ee0941b23f86"
+    "user_id": "640b03724ae7ee0941b23f86",
+    "courses_sold": 0
   },
   {
     "_id": "640b03724ae7ee0941b23f20",
-    "user_id": "640b03724ae7ee0941b23f87"
+    "user_id": "640b03724ae7ee0941b23f87",
+    "courses_sold": 0
   }
 ]

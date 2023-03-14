@@ -10,7 +10,9 @@ const Student = require("../models/Student.model");
 router.post("/signup", async (req, res, next) => {
   try {
     const { email, password, type } = req.body;
-
+    if (type === undefined) {
+      return res.status(400).json({errorMessage: "You should select a type"})
+    }
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
 

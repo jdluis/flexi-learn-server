@@ -7,9 +7,24 @@ const StudentSchema = new Schema(
       ref: "User",
       required: true,
     },
-    interested_topics: {
-      enum: ["healthy", "porgramming"],
-    },
+    interested_topics: [
+      {
+        type: String,
+        enum: ["programing", "healthy", "psychology", "marketing"],
+      },
+    ],
+    cart: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
+      },
+    ],
+    purchasedCourses: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
+      },
+    ],
   },
   {
     timestamps: true,

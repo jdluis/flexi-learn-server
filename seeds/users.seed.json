@@ -2,16 +2,28 @@
     {
         "_id": "640b03724ae7ee0941b23f86",
         "email": "pepe@gmail.com",
+        "first_name": "Pepe",
+        "last_name": "Garcia",
+        "description": "Soy un instructor muy guay",
+        "profileImg_url": "https://www.computerhope.com/jargon/g/guest-user.png",
         "password": "$2a$10$VPS0CKyfGDHvX2Ie67fYhOIlJhDSNA/fPyIhVqxZnuDQ31F/dy0Qu"
     },
     {
         "_id": "640b03724ae7ee0941b23f87",
         "email": "instructor@gmail.com",
+        "first_name": "Antonio",
+        "last_name": "Gomez",
+        "description": "El instructor por excelencia",
+        "profileImg_url": "https://www.computerhope.com/jargon/g/guest-user.png",
         "password": "$2a$10$VPS0CKyfGDHvX2Ie67fYhOIlJhDSNA/fPyIhVqxZnuDQ31F/dy0Qu"
     },
     {
         "_id": "640b03724ae7ee0941b23f88",
         "email": "user@gmail.com",
+        "first_name": "Urcaldo",
+        "last_name": "Jesus Manuel",
+        "description": "Vengo de donde el sol calienta la tierra",
+        "profileImg_url": "https://www.computerhope.com/jargon/g/guest-user.png",
         "password": "$2a$10$VPS0CKyfGDHvX2Ie67fYhOIlJhDSNA/fPyIhVqxZnuDQ31F/dy0Qu"
     }
 ]
