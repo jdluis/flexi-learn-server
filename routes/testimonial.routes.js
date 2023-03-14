@@ -1,11 +1,21 @@
 const router = require("express").Router();
 const Testimonial = require("../models/Testimonial.model");
 
-//GET "/api/testimonial/:id" => All testimonial
+//GET "/api/testimonial/" => All testimonial
+router.get("/", async (req, res, next) => {
+  try {
+    const response = await Testimonial.find().populate("author");
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+//GET "/api/testimonial/:id" => All testimonial of one User
 router.get("/:idUser", async (req, res, next) => {
   try {
     const {idUser} = req.params;
-    const response = await Testimonial.find({author:idUser}).populate("author");
+    const response = await Testimonial.find({author: idUser}).populate("author");
     res.json(response);
   } catch (error) {
     res.json(error);

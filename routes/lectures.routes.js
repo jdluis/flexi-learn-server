@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const Courses = require("../models/Course.model.js");
 const Lectures = require("../models/Lecture.model");
 
 //? In courses, because i need the params Id of course.
@@ -48,7 +47,11 @@ router.get("/:idLecture", async (req, res, next) => {
   const { idLecture } = req.params;
   try {
     //test
-    const allLecturesOfCourse = await Lectures.findById(idLecture).populate("testimonials");
+    const allLecturesOfCourse = await Lectures.findById(idLecture).populate({
+      path: "testimonials",
+      populate: { path: "author" },
+    });
+    
     res.json(allLecturesOfCourse);
   } catch (err) {
     next(err);
