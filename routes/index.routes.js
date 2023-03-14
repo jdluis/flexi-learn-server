@@ -19,4 +19,7 @@ router.use("/user", userRoutes)
 const testimonialRoutes = require("./testimonial.routes")
 router.use("/testimonial", testimonialRoutes)
 
+const uploadRoutes = require("./upload.routes");
+router.use("/upload", uploadRoutes);
+
 module.exports = router;
