@@ -51,16 +51,26 @@ router.post("/add", isAuthenticated, async (req, res, next) => {
   if (req.payload === null) {
     res.status(500).json("You can't create the course without user");
   }
-  
+
   try {
     // ! The lectures will be relationed after in the lectures routes
-    const { title, description, topic, price, level } = req.body;
+    const {
+      title,
+      topic,
+      level,
+      description,
+      price,
+      totalDuration,
+      coverImg_url,
+    } = req.body;
     const course = await Courses.create({
       title,
-      description,
       topic,
-      price,
       level,
+      description,
+      price,
+      totalDuration,
+      coverImg_url,
       instructor: req.payload.instructor,
     });
 
@@ -79,16 +89,26 @@ router.patch("/:id/edit", async (req, res, next) => {
     const { id } = req.params;
     //Ahora quedan vacios, cuando este el front, el default
     // value sera el que ya estaba
-    const { title, description, topic, price, level } = req.body;
+    const {
+      title,
+      topic,
+      level,
+      description,
+      price,
+      totalDuration,
+      coverImg_url,
+    } = req.body;
 
     const response = await Courses.findByIdAndUpdate(
       id,
       {
         title,
-        description,
         topic,
-        price,
         level,
+        description,
+        price,
+        totalDuration,
+        coverImg_url,
       },
       { new: true }
     );
