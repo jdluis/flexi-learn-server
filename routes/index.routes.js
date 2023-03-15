@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 router.get("/", (req, res, next) => {
-  res.json("All good in here");
+  res.status(200).json("All good in here");
 });
 
 const authRoutes = require("./auth.routes")
@@ -18,5 +18,11 @@ router.use("/user", userRoutes)
 
 const testimonialRoutes = require("./testimonial.routes")
 router.use("/testimonial", testimonialRoutes)
+
+const uploadRoutes = require("./upload.routes");
+router.use("/upload", uploadRoutes);
+
+const paymentRoutes = require("./payment.routes")
+router.use("/payment", paymentRoutes)
 
 module.exports = router;

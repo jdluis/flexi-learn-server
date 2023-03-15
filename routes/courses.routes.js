@@ -10,10 +10,9 @@ router.get("/", async (req, res, next) => {
     const response = await Courses.find().populate("instructor");
 
     //test
-    res.json(response);
+    res.status(200).json(response);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 
@@ -26,10 +25,9 @@ router.get("/my-courses", isAuthenticated, async (req, res, next) => {
       "instructor"
     );
     //test
-    res.json(response);
+    res.status(200).json(response);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 
@@ -39,36 +37,44 @@ router.get("/:id", async (req, res, next) => {
     const { id } = req.params;
     const response = await Courses.findById(id).populate("lectures instructor");
     //test
-    res.json(response);
+    res.status(200).json(response);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 
 //POST "/api/courses/add"
 router.post("/add", isAuthenticated, async (req, res, next) => {
   if (req.payload === null) {
-    res.status(500).json("You can't create the course without user");
+    res.status(500).json({errorMessage: "You can't create the course without user"});
   }
-  
+
   try {
     // ! The lectures will be relationed after in the lectures routes
-    const { title, description, topic, price, level } = req.body;
+    const {
+      title,
+      topic,
+      level,
+      description,
+      price,
+      totalDuration,
+      coverImg_url,
+    } = req.body;
     const course = await Courses.create({
       title,
-      description,
       topic,
-      price,
       level,
+      description,
+      price,
+      totalDuration,
+      coverImg_url,
       instructor: req.payload.instructor,
     });
 
     //test
-    res.json(course);
+    res.status(201).json(course);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 
@@ -79,25 +85,34 @@ router.patch("/:id/edit", async (req, res, next) => {
     const { id } = req.params;
     //Ahora quedan vacios, cuando este el front, el default
     // value sera el que ya estaba
-    const { title, description, topic, price, level } = req.body;
+    const {
+      title,
+      topic,
+      level,
+      description,
+      price,
+      totalDuration,
+      coverImg_url,
+    } = req.body;
 
     const response = await Courses.findByIdAndUpdate(
       id,
       {
         title,
-        description,
         topic,
-        price,
         level,
+        description,
+        price,
+        totalDuration,
+        coverImg_url,
       },
       { new: true }
     );
 
     //test
-    res.json(response);
+    res.status(201).json(response);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 
@@ -107,10 +122,9 @@ router.delete("/:id/delete", async (req, res, next) => {
     const { id } = req.params;
     await Courses.findByIdAndDelete(id);
     //test
-    res.json({ succeesMessage: "Delete of course Ok" });
+    res.status(200).json({ succeesMessage: "Delete of course Ok" });
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 
@@ -125,12 +139,11 @@ router.get("/:id/lectures/", async (req, res, next) => {
     const allLecturesOfCourse = await Courses.findById(id)
       .select("lectures")
       .populate("lectures");
+
     //test
-    res.json(allLecturesOfCourse);
+    res.status(200).json(allLecturesOfCourse);
   } catch (err) {
     next(err);
-    console.log(err);
-    res.json({ errorMessage: err });
   }
 });
 
@@ -155,14 +168,13 @@ router.post("/:id/lectures/add", async (req, res, next) => {
     );
 
     //test
-    res.json({
+    res.status(201).json({
       succeesMessage: "POST add lecture Ok",
       lecture: response,
       course: actualCourse,
     });
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 

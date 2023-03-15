@@ -5,10 +5,12 @@ const CourseSchema = new Schema(
     title: {
       type: String,
       required: true,
+      maxLength: 100
     },
     description: {
       type: String,
-      required: true,
+      required: false,
+      maxLength: 700
     },
     topic: {
       type: String,
@@ -18,10 +20,6 @@ const CourseSchema = new Schema(
     price: {
       type: Number,
       required: true,
-    },
-    totalDuration: {
-      type: Number,
-      required: false,
     },
     lectures: [
       {
@@ -39,12 +37,13 @@ const CourseSchema = new Schema(
       default:
         "https://uploads-ssl.webflow.com/63723fe799096ad12312edc2/63c6be2a0b0e6f6801c9fdfc_59.png",
     },
-    rate: Number,
     level: {
       type: String,
       requiered: true,
-      enum: ["beginner", "intermediate", "advanced", "expert", "all"]
+      enum: ["beginner", "intermediate", "advanced", "expert", "all"],
     },
+    totalDuration: Number,
+    rate: Number,
   },
   {
     timestamps: true,

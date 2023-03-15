@@ -23,7 +23,7 @@ router.post("/signup", async (req, res, next) => {
 
     //Check empty inputs
     if (!email || !password) {
-      res.json({ messageDeveloper: "Inputs should not be empty" });
+      res.status(400).json({ messageDeveloper: "Inputs should not be empty" });
       return;
     } else {
       const newUser = await User.create(dataSigup);
@@ -40,12 +40,12 @@ router.post("/signup", async (req, res, next) => {
           user_id: newUser._id,
         });
       } else {
-        res.status(400).json({ errorMessage: "Somethinq was wrong" });
+        res.status(502).json({ errorMessage: "No relationship was found between the user and a student or instructor, please contact Flexi Learn support." });
       }
     }
 
     //test
-    res.json({ succeesMessage: "Post of register Ok" });
+    res.status(201).json({ succeesMessage: "Post of register Ok" });
   } catch (err) {
     next(err);
     console.log(err);
@@ -62,7 +62,7 @@ router.post("/login", async (req, res, next) => {
     if (!foundUser) {
       res
         .status(400)
-        .json({ errorMessage: "No se encontro el usuario en la DB" });
+        .json({ errorMessage: "The user was not found in the DB" });
       return;
     }
 
@@ -72,7 +72,7 @@ router.post("/login", async (req, res, next) => {
       foundUser.password
     );
     if (!isPasswordCorrect) {
-      res.status(400).json({ errorMessage: "Contraseña incorrecta" });
+      res.status(400).json({ errorMessage: "Incorrect password" });
       return;
     }
 
@@ -107,14 +107,12 @@ router.post("/login", async (req, res, next) => {
     res.status(200).json({ authToken: authToken });
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 
 //GET "/api/auth/verify" => User active or not?
 router.get("/verify", isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
-  console.log(req.payload)
 });
 
 module.exports = router;

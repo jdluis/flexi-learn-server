@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const Courses = require("../models/Course.model.js");
 const Lectures = require("../models/Lecture.model");
 
 //? In courses, because i need the params Id of course.
@@ -10,11 +9,9 @@ router.get("/", async (req, res, next) => {
     //Select all lectures from the specific course
     const allLectures = await Lectures.find();
     //test
-    res.json(allLectures);
+    res.status(200).json(allLectures);
   } catch (err) {
     next(err);
-    console.log(err);
-    res.json({ errorMessage: err });
   }
 });
 
@@ -35,11 +32,9 @@ router.patch("/:idLecture/edit", async (req, res, next) => {
       { new: true }
     );
     //test
-    res.json(updateLecture);
+    res.status(201).json(updateLecture);
   } catch (err) {
     next(err);
-    console.log(err);
-    res.json({ errorMessage: err });
   }
 });
 
@@ -48,12 +43,14 @@ router.get("/:idLecture", async (req, res, next) => {
   const { idLecture } = req.params;
   try {
     //test
-    const allLecturesOfCourse = await Lectures.findById(idLecture).populate("testimonials");
-    res.json(allLecturesOfCourse);
+    const allLecturesOfCourse = await Lectures.findById(idLecture).populate({
+      path: "testimonials",
+      populate: { path: "author" },
+    });
+    
+    res.status(200).json(allLecturesOfCourse);
   } catch (err) {
     next(err);
-    console.log(err);
-    res.json({ errorMessage: err });
   }
 });
 
@@ -63,11 +60,9 @@ router.delete("/:idLecture/delete", async (req, res, next) => {
   try {
     await Lectures.findByIdAndDelete(idLecture);
     //test
-    res.json({ succeesMessage: "Delete of lecture Ok" });
+    res.status(200).json({ succeesMessage: "Delete of lecture Ok" });
   } catch (err) {
     next(err);
-    console.log(err);
-    res.json({ errorMessage: err });
   }
 });
 

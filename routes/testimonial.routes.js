@@ -1,14 +1,24 @@
 const router = require("express").Router();
 const Testimonial = require("../models/Testimonial.model");
 
-//GET "/api/testimonial/:id" => All testimonial
+//GET "/api/testimonial/" => All testimonial
+router.get("/", async (req, res, next) => {
+  try {
+    const response = await Testimonial.find().populate("author");
+    res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//GET "/api/testimonial/:id" => All testimonial of one User
 router.get("/:idUser", async (req, res, next) => {
   try {
     const {idUser} = req.params;
-    const response = await Testimonial.find({author:idUser}).populate("author");
-    res.json(response);
+    const response = await Testimonial.find({author: idUser}).populate("author");
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -20,9 +30,9 @@ router.post("/add", async (req, res, next) => {
       message,
       author
     });
-    res.json(response);
+    res.status(201).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -31,9 +41,9 @@ router.delete("/:id/delete", async (req, res, next) => {
   try {
     const { id } = req.params;
     const response = await Testimonial.findByIdAndDelete(id);
-    res.json(response);
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
