@@ -48,7 +48,6 @@ router.post("/signup", async (req, res, next) => {
     res.status(201).json({ succeesMessage: "Post of register Ok" });
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 
