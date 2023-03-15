@@ -22,4 +22,7 @@ router.use("/testimonial", testimonialRoutes)
 const uploadRoutes = require("./upload.routes");
 router.use("/upload", uploadRoutes);
 
+const paymentRoutes = require("./payment.routes")
+router.use("/payment", paymentRoutes)
+
 module.exports = router;
