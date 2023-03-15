@@ -12,7 +12,6 @@ router.post("/create-payment-intent", isAuthenticated, async (req, res, next) =>
   try {
     // this is where you will get the correct price to be paid
     const product = await Courses.findById(productId);
-    console.log(product);
     const priceToPay = product.price; // if not stored in cents, make sure to convert them to cents
     if (product === null) {
       res
