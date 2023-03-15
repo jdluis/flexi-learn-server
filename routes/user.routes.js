@@ -8,9 +8,9 @@ router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const response = await User.findById(id);
-    res.json(response);
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -27,9 +27,9 @@ router.patch("/:id/edit", async (req, res, next) => {
       description,
       profileImg_url,
     });
-    res.json(response);
+    res.status(201).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -38,9 +38,9 @@ router.get("/student/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const response = await Student.findById(id);
-    res.json(response);
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -54,9 +54,9 @@ router.patch("/student/:id/edit", async (req, res, next) => {
       cart,
       purchasedCourses,
     });
-    res.json(response);
+    res.status(201).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -65,9 +65,9 @@ router.get("/instructor/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const response = await Instructor.findById(id).populate("user_id");
-    res.json(response);
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -79,9 +79,9 @@ router.patch("/instructor/:id/edit", async (req, res, next) => {
     const response = await Instructor.findByIdAndUpdate(id, {
       courses_sold,
     });
-    res.json(response);
+    res.status(201).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -97,9 +97,9 @@ router.delete("/delete/:id", async (req, res, next) => {
    /*  await Instructor.findByIdAndDelete(id);
     await Student.findByIdAndDelete(id); */
 
-    res.json(response);
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 })
 

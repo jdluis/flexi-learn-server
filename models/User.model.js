@@ -6,6 +6,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
     },
     password: {
       type: String,
@@ -14,14 +15,17 @@ const UserSchema = new Schema(
     first_name: {
       type: String,
       required: false,
+      maxLength: 100
     },
     last_name: {
       type: String,
       required: false,
+      maxLength: 100
     },
     description: {
       type: String,
       required: false,
+      maxLength: 700
     },
     profileImg_url: {
       type: String,

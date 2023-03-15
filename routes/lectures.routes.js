@@ -9,11 +9,9 @@ router.get("/", async (req, res, next) => {
     //Select all lectures from the specific course
     const allLectures = await Lectures.find();
     //test
-    res.json(allLectures);
+    res.status(200).json(allLectures);
   } catch (err) {
     next(err);
-    console.log(err);
-    res.json({ errorMessage: err });
   }
 });
 
@@ -34,11 +32,9 @@ router.patch("/:idLecture/edit", async (req, res, next) => {
       { new: true }
     );
     //test
-    res.json(updateLecture);
+    res.status(201).json(updateLecture);
   } catch (err) {
     next(err);
-    console.log(err);
-    res.json({ errorMessage: err });
   }
 });
 
@@ -52,11 +48,9 @@ router.get("/:idLecture", async (req, res, next) => {
       populate: { path: "author" },
     });
     
-    res.json(allLecturesOfCourse);
+    res.status(200).json(allLecturesOfCourse);
   } catch (err) {
     next(err);
-    console.log(err);
-    res.json({ errorMessage: err });
   }
 });
 
@@ -66,11 +60,9 @@ router.delete("/:idLecture/delete", async (req, res, next) => {
   try {
     await Lectures.findByIdAndDelete(idLecture);
     //test
-    res.json({ succeesMessage: "Delete of lecture Ok" });
+    res.status(200).json({ succeesMessage: "Delete of lecture Ok" });
   } catch (err) {
     next(err);
-    console.log(err);
-    res.json({ errorMessage: err });
   }
 });
 

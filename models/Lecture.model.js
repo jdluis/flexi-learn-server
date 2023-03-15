@@ -10,10 +10,12 @@ const LectureSchema = new Schema(
     title: {
       type: String,
       required: true,
+      maxLength: 100
     },
     description: {
       type: String,
       required: false,
+      maxLength:700
     },
     duration: {
       type: Number,

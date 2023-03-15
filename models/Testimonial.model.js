@@ -5,6 +5,7 @@ const TestimonialSchema = new Schema(
     message: {
       type: String,
       required: false,
+      maxLength: 500
     },
     author: {
       type: Schema.Types.ObjectId,

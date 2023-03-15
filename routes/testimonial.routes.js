@@ -5,9 +5,9 @@ const Testimonial = require("../models/Testimonial.model");
 router.get("/", async (req, res, next) => {
   try {
     const response = await Testimonial.find().populate("author");
-    res.json(response);
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -16,9 +16,9 @@ router.get("/:idUser", async (req, res, next) => {
   try {
     const {idUser} = req.params;
     const response = await Testimonial.find({author: idUser}).populate("author");
-    res.json(response);
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -30,9 +30,9 @@ router.post("/add", async (req, res, next) => {
       message,
       author
     });
-    res.json(response);
+    res.status(201).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
@@ -41,9 +41,9 @@ router.delete("/:id/delete", async (req, res, next) => {
   try {
     const { id } = req.params;
     const response = await Testimonial.findByIdAndDelete(id);
-    res.json(response);
+    res.status(200).json(response);
   } catch (error) {
-    res.json(error);
+    next(error);
   }
 });
 
