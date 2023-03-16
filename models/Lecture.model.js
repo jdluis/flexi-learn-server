@@ -21,6 +21,10 @@ const LectureSchema = new Schema(
       type: Number,
       required: true,
     },
+    resources: { //Pendiente de implementar
+      type: String,
+      required: false,
+    },
     testimonials: [{
       type: Schema.Types.ObjectId,
       ref: "Testimonial",

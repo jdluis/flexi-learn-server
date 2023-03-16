@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Lectures = require("../models/Lecture.model");
+const Courses = require("../models/Course.model.js");
 
 //? In courses, because i need the params Id of course.
 //GET "/api/lectures"
@@ -38,6 +39,21 @@ router.patch("/:idLecture/edit", async (req, res, next) => {
   }
 });
 
+//GET "/api/lectures/course/:byIdLecture" => Search the Course of one lecture
+router.get("/course/:byIdLecture", async (req, res, next) => {
+  const { byIdLecture } = req.params;
+  try {
+    //test
+    const courseByLecture = await Courses.findOne({ lectures: { $in: [byIdLecture] } }).populate("lectures")
+
+    console.log(courseByLecture);
+
+    res.status(200).json(courseByLecture);
+  } catch (err) {
+    next(err);
+  }
+});
+
 //GET "/api/lectures/:idLecture"
 router.get("/:idLecture", async (req, res, next) => {
   const { idLecture } = req.params;
@@ -46,8 +62,8 @@ router.get("/:idLecture", async (req, res, next) => {
     const allLecturesOfCourse = await Lectures.findById(idLecture).populate({
       path: "testimonials",
       populate: { path: "author" },
-    })
-    
+    });
+
     res.status(200).json(allLecturesOfCourse);
   } catch (err) {
     next(err);
@@ -60,7 +76,10 @@ router.delete("/:idLecture/delete", async (req, res, next) => {
   try {
     const lectureDeleted = await Lectures.findByIdAndDelete(idLecture);
     //test
-    res.status(200).json({ succeesMessage: "Delete of lecture Ok", lecture: lectureDeleted });
+    res.status(200).json({
+      succeesMessage: "Delete of lecture Ok",
+      lecture: lectureDeleted,
+    });
   } catch (err) {
     next(err);
   }
