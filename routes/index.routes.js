@@ -25,4 +25,7 @@ router.use("/upload", uploadRoutes);
 const paymentRoutes = require("./payment.routes")
 router.use("/payment", paymentRoutes)
 
+const notesRoutes = require("./notes.routes")
+router.use("/notes", notesRoutes)
+
 module.exports = router;
