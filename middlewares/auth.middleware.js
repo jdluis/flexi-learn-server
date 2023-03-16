@@ -3,10 +3,10 @@ const { expressjwt } = require("express-jwt");
 const isAuthenticated = expressjwt({
   secret: process.env.TOKEN_SECRET,
   algorithms: ["HS256"],
-  requestProperty: "payload", // para permitirnos tener el payload del token para saber que usuario es el que está logeando
+  requestProperty: "payload",
   getToken: (req) => {
     if (req.headers === undefined || req.headers.authorization === undefined) {
-      console.log("usuario no tiene token");
+      // errorMessage: "User does not have a token."
       return null;
     }
 
@@ -15,14 +15,12 @@ const isAuthenticated = expressjwt({
     const token = tokenArr[1];
 
     if (tokenType !== "Bearer") {
-      console.log("Tipo de token no valido");
+      //errorMessage: "Invalid token type"
       return null;
     }
 
-    console.log("El token existe y tiene tipo correcto");
+    //successMessage: "The token exists and has the correct type"
     return token;
-
-    // console.log(req.headers.authorization)
   },
 });
 

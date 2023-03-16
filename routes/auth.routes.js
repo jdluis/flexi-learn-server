@@ -5,14 +5,13 @@ const isAuthenticated = require("../middlewares/auth.middleware");
 const User = require("../models/User.model");
 const Instructor = require("../models/Instructor.model");
 const Student = require("../models/Student.model");
+const { validatePassword, validateEmail } = require("../utils/validations");
 
 //POST "/api/auth/signup" => Registrar usuario en DB
 router.post("/signup", async (req, res, next) => {
   try {
     const { email, password, type } = req.body;
-    if (type === undefined) {
-      return res.status(400).json({errorMessage: "You should select a type"})
-    }
+
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
 
@@ -20,35 +19,65 @@ router.post("/signup", async (req, res, next) => {
       email,
       password: hashPassword,
     };
+    const users = await User.find({ email: email });
 
+    /* VALIDATIONS */
     //Check empty inputs
+    if (type === null) {
+      return res
+        .status(400)
+        .json({ messageDeveloper: "You should select a type" });
+    }
+
     if (!email || !password) {
-      res.status(400).json({ messageDeveloper: "Inputs should not be empty" });
-      return;
+      return res
+        .status(400)
+        .json({ messageDeveloper: "Inputs should not be empty" });
+    }
+    //User already exist
+    if (users.length > 0) {
+      return res
+        .status(400)
+        .json({ messageDeveloper: "The email exist already, choose another" });
+    }
+    //Password
+    if (validatePassword(password) === false) {
+      return res
+        .status(400)
+        .json({
+          messageDeveloper: `The password need at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number:  👨‍🏫`,
+        });
+    }
+    //Email
+    if (validateEmail(email) === false) {
+      return res
+        .status(400)
+        .json({
+          messageDeveloper: `Introduce an email with the correct format: example@gmail.com,  👨‍🏫`,
+        });
+    }
+
+    const newUser = await User.create(dataSigup);
+
+    if (type === "instructor") {
+      await Instructor.create({
+        user_id: newUser._id,
+      });
+    } else if (type === "student") {
+      await Student.create({
+        user_id: newUser._id,
+      });
     } else {
-      const newUser = await User.create(dataSigup);
-
-      // ! For now is a type hidden in the body, change depend of what
-      // ! you click in the preview component. i can pass like a state
-
-      if (type === "instructor") {
-        await Instructor.create({
-          user_id: newUser._id,
-        });
-      } else if (type === "student") {
-        await Student.create({
-          user_id: newUser._id,
-        });
-      } else {
-        res.status(502).json({ errorMessage: "No relationship was found between the user and a student or instructor, please contact Flexi Learn support." });
-      }
+      res.status(502).json({
+        errorMessage:
+          "No relationship was found between the user and a student or instructor, please contact Flexi Learn support.",
+      });
     }
 
     //test
     res.status(201).json({ succeesMessage: "Post of register Ok" });
   } catch (err) {
     next(err);
-    console.log(err);
   }
 });
 
@@ -62,7 +91,7 @@ router.post("/login", async (req, res, next) => {
     if (!foundUser) {
       res
         .status(400)
-        .json({ errorMessage: "The user was not found in the DB" });
+        .json({ errorMessage: "The email was not found in the DB" });
       return;
     }
 
@@ -89,11 +118,13 @@ router.post("/login", async (req, res, next) => {
       ? (payload = {
           _id: foundUser._id,
           email: foundUser.email,
+          name: foundUser.first_name,
           instructor: isInstructor._id,
         })
       : (payload = {
           _id: foundUser._id,
           email: foundUser.email,
+          name: foundUser.first_name,
           student: isStudent._id,
         });
 
