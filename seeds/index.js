@@ -5,12 +5,14 @@ const Courses = require("../models/Course.model");
 const User = require("../models/User.model");
 const Instructor = require("../models/Instructor.model");
 const Student = require("../models/Student.model");
+const Lecture = require("../models/Lecture.model");
 
 
 const courseSeed = require("./courses.seed.json");
 const usersSeed = require("./users.seed.json");
 const instructorSeed = require("./instructor.seed.json");
 const studentSeed = require("./student.seed.json");
+const lectureSeed = require("./lectures.seed.json");
 
 // ℹ️ Sets the MongoDB URI for our app to have access to it.
 // If no env has been set, we dynamically set it to whatever the folder name was upon the creation of the app
@@ -50,6 +52,11 @@ mongoose.connection
     console.log(`Seeding courses`);
     // Carga las semillas después de eliminar la base de datos
     return Courses.create(courseSeed);
+  })
+  .then(() => {
+    console.log(`Seeding Lectures`);
+    // Carga las semillas después de eliminar la base de datos
+    return Lecture.create(lectureSeed);
   })
   .then(() => {
     console.log("Se añadieron las semillas a la base de datos");

@@ -5,7 +5,7 @@
         "description": "Una nueva forma de someter tu codigo mediante la mejor atraccion turistica.",
         "topic": "programing",
         "price": 200,
-        "lectures": [],
+        "lectures": ["64132862387387a2e7cad130"],
         "instructor": "640b03724ae7ee0941b23f20",
         "level": "beginner"
     },
@@ -15,7 +15,7 @@
         "description": "Una nueva forma de someter tu codigo mediante la mejor atraccion turistica.",
         "topic": "healthy",
         "price": 200,
-        "lectures": [],
+        "lectures": ["64132862387387a2e7cad133"],
         "instructor": "640b03724ae7ee0941b23f20",
         "level": "beginner"
     },
@@ -25,7 +25,7 @@
         "description": "Una nueva forma de someter tu codigo mediante la mejor atraccion turistica.",
         "topic": "programing",
         "price": 200,
-        "lectures": [],
+        "lectures": ["64132862387387a2e7cad131"],
         "instructor": "640b03724ae7ee0941b23f14",
         "level": "beginner"
     },
@@ -35,7 +35,7 @@
         "description": "Una nueva forma de someter tu codigo mediante la mejor atraccion turistica.",
         "topic": "healthy",
         "price": 200,
-        "lectures": [],
+        "lectures": ["64132862387387a2e7cad132"],
         "instructor": "640b03724ae7ee0941b23f14",
         "level": "beginner"
     }
