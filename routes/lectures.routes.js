@@ -46,7 +46,7 @@ router.get("/:idLecture", async (req, res, next) => {
     const allLecturesOfCourse = await Lectures.findById(idLecture).populate({
       path: "testimonials",
       populate: { path: "author" },
-    });
+    })
     
     res.status(200).json(allLecturesOfCourse);
   } catch (err) {
@@ -58,9 +58,9 @@ router.get("/:idLecture", async (req, res, next) => {
 router.delete("/:idLecture/delete", async (req, res, next) => {
   const { idLecture } = req.params;
   try {
-    await Lectures.findByIdAndDelete(idLecture);
+    const lectureDeleted = await Lectures.findByIdAndDelete(idLecture);
     //test
-    res.status(200).json({ succeesMessage: "Delete of lecture Ok" });
+    res.status(200).json({ succeesMessage: "Delete of lecture Ok", lecture: lectureDeleted });
   } catch (err) {
     next(err);
   }

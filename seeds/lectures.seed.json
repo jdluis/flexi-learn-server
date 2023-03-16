@@ -1,0 +1,34 @@
+[
+  {
+    "_id": "64132862387387a2e7cad130",
+    "video_url": "https://www.youtube.com/watch?v=dgVdXJ9AAxg",
+    "title": "lecture1",
+    "description": "lecture descripcion",
+    "duration": 8,
+    "testimonials": []
+  },
+  {
+    "_id": "64132862387387a2e7cad131",
+    "video_url": "https://www.youtube.com/watch?v=kIQS15N5qYQ&t=224s",
+    "title": "lecture2",
+    "description": "lecture descripcion",
+    "duration": 8,
+    "testimonials": []
+  },
+  {
+    "_id": "64132862387387a2e7cad132",
+    "video_url": "https://www.youtube.com/watch?v=cqg9ZfUjSAc&t=183s",
+    "title": "lecture3",
+    "description": "lecture descripcion",
+    "duration": 8,
+    "testimonials": []
+  },
+  {
+    "_id": "64132862387387a2e7cad133",
+    "video_url": "https://www.youtube.com/watch?v=eD4lt6XqcTY",
+    "title": "lecture4",
+    "description": "lecture descripcion",
+    "duration": 8,
+    "testimonials": []
+  }
+]

@@ -6,6 +6,21 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // make sure to
 const Payment = require("../models/Payment.model.js");
 const isAuthenticated = require("../middlewares/auth.middleware");
 
+
+//Get buyer products
+router.get("/:buyerId", async (req, res, next) => {
+  const { buyerId } = req.params;
+
+  try {
+    const data = await Payment.find({buyer: buyerId}).populate("product buyer")
+    res.status(200).json(data);
+
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 router.post("/create-payment-intent", isAuthenticated, async (req, res, next) => {
   const productId = req.body._id; // this is how we will receive the productId the user is trying to purchase. This can also later be set to receive via params.
 
@@ -27,7 +42,6 @@ router.post("/create-payment-intent", isAuthenticated, async (req, res, next) =>
       },
     });
 
-    // TODO on part 2. this is where you will later create a Payment Document later
     await Payment.create({
       price: priceToPay,
       product: productId,

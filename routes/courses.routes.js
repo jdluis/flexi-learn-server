@@ -46,7 +46,9 @@ router.get("/:id", async (req, res, next) => {
 //POST "/api/courses/add"
 router.post("/add", isAuthenticated, async (req, res, next) => {
   if (req.payload === null) {
-    res.status(500).json({errorMessage: "You can't create the course without user"});
+    res
+      .status(500)
+      .json({ errorMessage: "You can't create the course without user" });
   }
 
   try {
@@ -60,6 +62,13 @@ router.post("/add", isAuthenticated, async (req, res, next) => {
       totalDuration,
       coverImg_url,
     } = req.body;
+
+    if (!title || !topic || !level || !price || !coverImg_url) {
+      return res
+        .status(400)
+        .json({ messageDeveloper: "Inputs should not be empty" });
+    }
+
     const course = await Courses.create({
       title,
       topic,
@@ -152,6 +161,11 @@ router.post("/:id/lectures/add", async (req, res, next) => {
   const { id } = req.params;
   try {
     const { video_url, title, description, duration } = req.body;
+
+    if (!video_url || !title || !duration) {
+      return res.status(400).json("Inputs should not be empty");
+    }
+
     const response = await Lectures.create({
       video_url,
       title,
