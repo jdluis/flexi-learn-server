@@ -42,19 +42,15 @@ router.post("/signup", async (req, res, next) => {
     }
     //Password
     if (validatePassword(password) === false) {
-      return res
-        .status(400)
-        .json({
-          messageDeveloper: `The password need at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number:  👨‍🏫`,
-        });
+      return res.status(400).json({
+        messageDeveloper: `The password need at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number:  👨‍🏫`,
+      });
     }
     //Email
     if (validateEmail(email) === false) {
-      return res
-        .status(400)
-        .json({
-          messageDeveloper: `Introduce an email with the correct format: example@gmail.com,  👨‍🏫`,
-        });
+      return res.status(400).json({
+        messageDeveloper: `Introduce an email with the correct format: example@gmail.com,  👨‍🏫`,
+      });
     }
 
     const newUser = await User.create(dataSigup);
@@ -63,10 +59,12 @@ router.post("/signup", async (req, res, next) => {
       await Instructor.create({
         user_id: newUser._id,
       });
+      await User.findByIdAndDelete(newUser._id);
     } else if (type === "student") {
       await Student.create({
         user_id: newUser._id,
       });
+      await User.findByIdAndDelete(newUser._id);
     } else {
       res.status(502).json({
         errorMessage:
