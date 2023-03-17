@@ -63,7 +63,7 @@ router.post("/add", isAuthenticated, async (req, res, next) => {
       coverImg_url,
     } = req.body;
 
-    if (!title || !topic || !level || !price || !coverImg_url) {
+    if (!title || !topic || !level || !price) {
       return res
         .status(400)
         .json({ messageDeveloper: "Inputs should not be empty" });
