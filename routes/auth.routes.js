@@ -56,21 +56,23 @@ router.post("/signup", async (req, res, next) => {
     const newUser = await User.create(dataSigup);
 
     if (type === "instructor") {
-      await Instructor.create({
+      const instructorCreated = await Instructor.create({
         user_id: newUser._id,
       });
-     
     } else if (type === "student") {
-      await Student.create({
+      const studentCreated = await Student.create({
         user_id: newUser._id,
       });
-    
     } else {
       await User.findByIdAndDelete(newUser._id);
       res.status(502).json({
         errorMessage:
           "No relationship was found between the user and a student or instructor, please contact Flexi Learn support.",
       });
+    }
+
+    if ((instructorCreated = null || studentCreated === null)) {
+      await User.findByIdAndDelete(newUser._id);
     }
 
     //test
