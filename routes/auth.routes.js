@@ -65,13 +65,13 @@ router.post("/signup", async (req, res, next) => {
       });
     } else {
       await User.findByIdAndDelete(newUser._id);
-      res.status(502).json({
+     return  res.status(502).json({
         errorMessage:
           "No relationship was found between the user and a student or instructor, please contact Flexi Learn support.",
       });
     }
 
-    if ((instructorCreated = null || studentCreated === null)) {
+    if ((instructorCreated = null || studentCreated === null && newUser !== null)) {
       await User.findByIdAndDelete(newUser._id);
     }
 
