@@ -28,4 +28,7 @@ router.use("/payment", paymentRoutes)
 const notesRoutes = require("./notes.routes")
 router.use("/notes", notesRoutes)
 
+const studentRoutes = require("./student.routes")
+router.use("/student", studentRoutes)
+
 module.exports = router;
