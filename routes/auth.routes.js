@@ -54,9 +54,10 @@ router.post("/signup", async (req, res, next) => {
       });
     }
 
-    const newUser = await User.create(dataSigup);
+   
 
     if (type === "instructor") {
+      const newUser = await User.create(dataSigup);
       const instructorCreated = await Instructor.create({
         user_id: newUser._id,
       });
@@ -69,6 +70,7 @@ router.post("/signup", async (req, res, next) => {
         });
       }
     } else if (type === "student") {
+      const newUser = await User.create(dataSigup);
       const studentCreated = await Student.create({
         user_id: newUser._id,
       });
