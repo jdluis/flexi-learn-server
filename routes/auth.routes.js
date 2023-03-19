@@ -9,6 +9,7 @@ const { validatePassword, validateEmail } = require("../utils/validations");
 
 //POST "/api/auth/signup" => Registrar usuario en DB
 router.post("/signup", async (req, res, next) => {
+  let newUser = null; //Declarar newUser fuera del bloque try para que pueda accederse desde el bloque catch
   try {
     const { email, password, type } = req.body;
 
@@ -57,7 +58,7 @@ router.post("/signup", async (req, res, next) => {
    
 
     if (type === "instructor") {
-      const newUser = await User.create(dataSigup);
+       newUser = await User.create(dataSigup);
       const instructorCreated = await Instructor.create({
         user_id: newUser._id,
       });
@@ -70,7 +71,7 @@ router.post("/signup", async (req, res, next) => {
         });
       }
     } else if (type === "student") {
-      const newUser = await User.create(dataSigup);
+       newUser = await User.create(dataSigup);
       const studentCreated = await Student.create({
         user_id: newUser._id,
       });
