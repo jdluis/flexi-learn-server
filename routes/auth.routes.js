@@ -19,6 +19,7 @@ router.post("/signup", async (req, res, next) => {
       email,
       password: hashPassword,
     };
+
     const users = await User.find({ email: email });
 
     /* VALIDATIONS */
@@ -38,18 +39,18 @@ router.post("/signup", async (req, res, next) => {
     if (users.length > 0) {
       return res
         .status(400)
-        .json({ messageDeveloper: "The email exist already, choose another" });
+        .json({ messageDeveloper: "The email exists already, please choose another one" });
     }
     //Password
     if (validatePassword(password) === false) {
       return res.status(400).json({
-        messageDeveloper: `The password need at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number:  👨‍🏫`,
+        messageDeveloper: `The password must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number.`,
       });
     }
     //Email
     if (validateEmail(email) === false) {
       return res.status(400).json({
-        messageDeveloper: `Introduce an email with the correct format: example@gmail.com,  👨‍🏫`,
+        messageDeveloper: `Please enter a valid email address.`,
       });
     }
 
@@ -59,29 +60,51 @@ router.post("/signup", async (req, res, next) => {
       const instructorCreated = await Instructor.create({
         user_id: newUser._id,
       });
+
+      // Verificar si el instructor no se ha creado correctamente
+      if (!instructorCreated) {
+        await User.findByIdAndDelete(newUser._id);
+        return res.status(500).json({
+          errorMessage: "Error creating instructor, please try again later.",
+        });
+      }
     } else if (type === "student") {
       const studentCreated = await Student.create({
         user_id: newUser._id,
       });
+
+      // Verificar si el estudiante no se ha creado correctamente
+      if (!studentCreated) {
+        await User.findByIdAndDelete(newUser._id);
+        return res.status(500).json({
+          errorMessage: "Error creating student, please try again later.",
+        });
+      }
     } else {
       await User.findByIdAndDelete(newUser._id);
-     return  res.status(502).json({
+      return res.status(400).json({
         errorMessage:
           "No relationship was found between the user and a student or instructor, please contact Flexi Learn support.",
       });
     }
 
-    if ((instructorCreated = null || studentCreated === null && newUser !== null)) {
+    // Enviar una respuesta al cliente con un mensaje de éxito y un código de estado HTTP 201
+    res.status(201).json({ succeesMessage: "Registration successful" });
+
+  } catch (err) {
+    // Si se ha creado el usuario, borrarlo
+    if (newUser !== null) {
       await User.findByIdAndDelete(newUser._id);
     }
 
-    //test
-    res.status(201).json({ succeesMessage: "Post of register Ok" });
-  } catch (err) {
-    await User.findByIdAndDelete(newUser._id);
-    next(err);
+    // Enviar una respuesta al cliente con el mensaje de error y un código de estado HTTP 500
+    res.status(500).json({
+      errorMessage: "An error occurred while registering the user, please try again later.",
+      errorDetails: err.message // opcional: información detallada del error
+    });
   }
 });
+
 
 //POST "/api/auth/login" => Validar credenciales de logeo
 router.post("/login", async (req, res, next) => {

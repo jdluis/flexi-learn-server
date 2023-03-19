@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-//GET "/api/courses"
+//GET "/api/courses/my-courses"
 router.get("/my-courses", isAuthenticated, async (req, res, next) => {
   try {
     const { instructor } = req.payload;
@@ -63,7 +63,7 @@ router.post("/add", isAuthenticated, async (req, res, next) => {
       coverImg_url,
     } = req.body;
 
-    if (!title || !topic || !level || !price) {
+    if (!title || !topic || !level || !price || !coverImg_url) {
       return res
         .status(400)
         .json({ messageDeveloper: "Inputs should not be empty" });

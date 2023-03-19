@@ -1,7 +1,7 @@
 [
     {
         "_id": "640b03724ae7ee0941b23f86",
-        "email": "pepe@gmail.com",
+        "email": "instructor@gmail.com",
         "first_name": "Pepe",
         "last_name": "Garcia",
         "description": "Soy un instructor muy guay",
@@ -10,7 +10,7 @@
     },
     {
         "_id": "640b03724ae7ee0941b23f87",
-        "email": "instructor@gmail.com",
+        "email": "student@gmail.com",
         "first_name": "Antonio",
         "last_name": "Gomez",
         "description": "El instructor por excelencia",
