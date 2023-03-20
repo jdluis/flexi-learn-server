@@ -13,24 +13,16 @@ const StudentSchema = new Schema(
         enum: ["programing", "healthy", "psychology", "marketing"],
       },
     ],
-    cart: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
     purchasedCourses: [
       {
         type: Schema.Types.ObjectId,
         ref: "Course",
-        unique: true,
       },
     ],
     cartCourses: [
       {
         type: Schema.Types.ObjectId,
         ref: "Course",
-        unique: true,
       },
     ],
   },
@@ -38,8 +30,6 @@ const StudentSchema = new Schema(
     timestamps: true,
   }
 );
-
-StudentSchema.index({ "purchasedCourses": 1 }, { unique: true });
 
 const Student = model("Student", StudentSchema);
 

@@ -42,7 +42,7 @@ router.post("/signup", async (req, res, next) => {
         .status(400)
         .json({ messageDeveloper: "The email exists already, please choose another one" });
     }
-    //Password
+/*     //Password
     if (validatePassword(password) === false) {
       return res.status(400).json({
         messageDeveloper: `The password must have at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number.`,
@@ -53,7 +53,7 @@ router.post("/signup", async (req, res, next) => {
       return res.status(400).json({
         messageDeveloper: `Please enter a valid email address.`,
       });
-    }
+    } */
 
    
 
