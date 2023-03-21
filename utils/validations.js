@@ -5,19 +5,11 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
 
 //Email
 const validateEmail = (email) => {
-  if (!emailRegex.test(email)) {
-    return false;
-  } else {
-    return true;
-  }
+  return emailRegex.test(email);
 };
 // Password
 const validatePassword = (password) => {
-  if (!passwordRegex.test(password)) {
-    return false;
-  } else {
-    return true;
-  }
+  return passwordRegex.test(password);
 };
 
 module.exports = { validatePassword, validateEmail };
